@@ -3,6 +3,7 @@ import React from "react"
 import { View, StyleSheet, Dimensions } from "react-native"
 
 // COMPONENTS IMPORTS //
+import Underlay from "./Underlay/Underlay"
 import BarItem from "./BarItem/BarItem"
 
 // EXTRA IMPORTS //
@@ -21,37 +22,46 @@ interface PropsType {
 
 const { width: sWidth } = Dimensions.get("window")
 const aspectRatio = 165 / 305
-const width = sWidth - 25 * 2
-const height = width * aspectRatio
+const canvasWidth = sWidth - 25 * 2
+const canvasHeight = canvasWidth * aspectRatio
 
-const lerp = (v0: number, v1: number, t: number) => {
-  return (1 - t) * v0 + t * v1
-}
+const width = canvasWidth - 30
+const height = canvasHeight - 30
 
 const Graph: React.FC<PropsType> = (props) => {
   const values = props.data.map((item) => item.value)
   const dates = props.data.map((item) => item.date)
   const maxY = Math.max(...values)
+  const minY = Math.min(...values)
+  const step = width / props.data.length
 
   return (
     <View style={styles.wrapper}>
-      {props.data.map((point, index) => {
-        if (point.value === 0) {
-          return null
-        }
-        const step = width / props.data.length
-        return <BarItem index={index} point={point} step={step} maxY={maxY} />
-      })}
+      <Underlay dates={dates} step={step} minY={minY} maxY={maxY} />
+      <View style={styles.bars_wrap}>
+        {props.data.map((point, index) => {
+          if (point.value === 0) {
+            return null
+          }
+          return <BarItem index={index} point={point} step={step} maxY={maxY} />
+        })}
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   wrapper: {
+    marginTop: 30,
+    paddingBottom: 35,
+    paddingLeft: 35,
+  },
+
+  bars_wrap: {
     width,
     height,
     alignSelf: "center",
-    marginTop: 25,
+    marginTop: 50,
   },
 })
 

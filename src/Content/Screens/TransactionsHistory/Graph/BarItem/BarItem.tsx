@@ -3,6 +3,7 @@ import React from "react"
 import { View, StyleSheet, Dimensions } from "react-native"
 
 // COMPONENTS IMPORTS //
+import { lerp } from "../Shared/utils"
 
 // EXTRA IMPORTS //
 
@@ -26,10 +27,6 @@ const { width: sWidth } = Dimensions.get("window")
 const aspectRatio = 165 / 305
 const width = sWidth - 25 * 2
 const height = width * aspectRatio
-
-const lerp = (v0: number, v1: number, t: number) => {
-  return (1 - t) * v0 + t * v1
-}
 
 const BarItem: React.FC<PropsType> = (props) => {
   const BORDER_RADIUS = 20

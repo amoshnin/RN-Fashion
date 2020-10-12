@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { Text, TouchableOpacity } from "react-native"
+import { Text, TouchableOpacity, TextStyle } from "react-native"
 
 // COMPONENTS IMPORTS //
 
@@ -17,7 +17,7 @@ type PropsType = {
   isCenterAlign?: boolean
   fontFamily?: "Regular" | "Semibold" | "Bold"
 
-  style?: any
+  style?: TextStyle
   onPress?: () => void
 }
 
@@ -32,14 +32,14 @@ const TextBody: React.FC<PropsType> = (props) => {
     <Text
       style={[
         props.style,
+        { ...getProps() },
         {
           lineHeight: props.lineHeight,
           color: props.color || Theme.colors.secondary,
           fontSize: props.size || 15,
           fontWeight: props.isBold ? "bold" : "500",
           textAlign: props.isCenterAlign && "center",
-        },
-        { ...getProps() },
+        } as any,
       ]}
     >
       {props.children}
