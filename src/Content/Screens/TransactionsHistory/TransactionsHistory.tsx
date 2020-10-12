@@ -79,11 +79,11 @@ const TransactionsHistory: React.FC<PropsType> = (props) => {
           darkText
         />
       </SafeAreaView>
-      <ScrollView>
+      <View style={styles.content}>
         <TopSection />
         <Graph data={data} />
-        <TransactionsList />
-      </ScrollView>
+        <TransactionsList data={data} />
+      </View>
       <Footer />
     </View>
   )
@@ -93,6 +93,8 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
   },
+
+  content: { flex: 1 },
 })
 
 export default React.memo(TransactionsHistory)
