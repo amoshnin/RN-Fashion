@@ -1,9 +1,9 @@
 // PLUGINS IMPORTS //
 import React from "react"
 import { View, StyleSheet, Dimensions } from "react-native"
-import Theme from "~/Content/Shared/Helpers/Constants/Theme/Theme"
 
 // COMPONENTS IMPORTS //
+import BarItem from "./BarItem/BarItem"
 
 // EXTRA IMPORTS //
 
@@ -12,6 +12,7 @@ import Theme from "~/Content/Shared/Helpers/Constants/Theme/Theme"
 export interface PointType {
   date: number
   value: number
+  color: string
 }
 
 interface PropsType {
@@ -20,7 +21,7 @@ interface PropsType {
 
 const { width: sWidth } = Dimensions.get("window")
 const aspectRatio = 165 / 305
-const width = sWidth - 20 * 2
+const width = sWidth - 25 * 2
 const height = width * aspectRatio
 
 const lerp = (v0: number, v1: number, t: number) => {
@@ -36,6 +37,7 @@ const Graph: React.FC<PropsType> = (props) => {
   const minY = Math.min(...values)
   const maxY = Math.max(...values)
 
+  const BORDER_RADIUS = 20
   return (
     <View style={styles.wrapper}>
       {props.data.map((point, index) => {
@@ -43,19 +45,7 @@ const Graph: React.FC<PropsType> = (props) => {
           return null
         }
         const step = width / props.data.length
-        return (
-          <View
-            key={point.date}
-            style={{
-              position: "absolute",
-              width: step,
-              left: index * step,
-              bottom: 0,
-              backgroundColor: Theme.colors.primary,
-              height: lerp(0, height, point.value / maxY),
-            }}
-          ></View>
-        )
+        return <BarItem index={index} point={point} step={step} maxY={maxY} />
       })}
     </View>
   )
