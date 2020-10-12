@@ -21,6 +21,7 @@ interface PropsType {
   index: number
   maxY: number
   step: number
+  i: number
 }
 
 const { width: sWidth } = Dimensions.get("window")
@@ -38,7 +39,7 @@ const BarItem: React.FC<PropsType> = (props) => {
         styles.wrapper,
         {
           width: props.step,
-          left: props.index * props.step,
+          left: props.i * props.step,
           height: lerp(0, height, props.point.value / props.maxY),
         },
       ]}

@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useState } from "react"
 import { View, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Icon } from "~/Content/Shared/Components/Components/Components"
@@ -7,7 +7,8 @@ import { useNavigation } from "@react-navigation/native"
 
 // COMPONENTS IMPORTS //
 import Header from "~/Content/Shared/Components/Sections/Header/Header"
-import ProductsList from "./ProductsList/ProductsList"
+import ProductsList, { defaultOutfits } from "./ProductsList/ProductsList"
+import { OutfitType } from "./ProductsList/ProductItem/ProductItem"
 import Footer from "./Footer/Footer"
 
 // EXTRA IMPORTS //
@@ -19,6 +20,8 @@ type PropsType = {}
 
 const FavouriteOutfits: React.FC<PropsType> = (props) => {
   const navigation = useNavigation()
+  const [outfits, setOutfits] = useState(defaultOutfits)
+  const [selectedOutfits, setSelectedOutfits] = useState<Array<OutfitType>>([])
 
   return (
     <View style={styles.wrapper}>
@@ -40,9 +43,22 @@ const FavouriteOutfits: React.FC<PropsType> = (props) => {
         />
       </SafeAreaView>
 
-      <ProductsList />
+      <ProductsList
+        outfits={outfits}
+        selectedOutfits={selectedOutfits}
+        setSelectedOutfits={setSelectedOutfits}
+      />
       <View style={styles.footer_wrap}>
-        <Footer label={"Add to favourites"} onPress={() => {}} />
+        <Footer
+          label={"Add to favourites"}
+          onPress={() =>
+            setOutfits((prev) =>
+              prev.filter(
+                (ar) => !selectedOutfits.find((rm) => rm.ID === ar.ID)
+              )
+            )
+          }
+        />
       </View>
     </View>
   )

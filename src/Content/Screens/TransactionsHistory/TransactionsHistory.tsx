@@ -15,12 +15,14 @@ import TransactionsList from "./TransactionList/TransactionList"
 
 // EXTRA IMPORTS //
 import { Ionicons, Feather } from "@expo/vector-icons"
-import { ScrollView } from "react-native-gesture-handler"
 import Theme from "~/Content/Shared/Helpers/Constants/Theme/Theme"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {}
+
+const startDate = new Date("2019-09-01").getTime()
+const numberOfMonths = 7
 const data: Array<PointType> = [
   {
     date: new Date("2019-09-01").getTime(),
@@ -43,17 +45,17 @@ const data: Array<PointType> = [
     color: "#FF0058",
   },
   {
-    date: new Date("2019-11-11").getTime(),
+    date: new Date("2019-12-11").getTime(),
     value: 80.42,
     color: "#FFC641",
   },
   {
-    date: new Date("2019-11-11").getTime(),
+    date: new Date("2020-01-11").getTime(),
     value: 70.42,
     color: "#FF0058",
   },
   {
-    date: new Date("2019-11-11").getTime(),
+    date: new Date("2020-02-11").getTime(),
     value: 45.42,
     color: Theme.colors.primary,
   },
@@ -81,7 +83,11 @@ const TransactionsHistory: React.FC<PropsType> = (props) => {
       </SafeAreaView>
       <View style={styles.content}>
         <TopSection />
-        <Graph data={data} />
+        <Graph
+          data={data}
+          startDate={startDate}
+          numberOfMonths={numberOfMonths}
+        />
         <TransactionsList data={data} />
       </View>
       <Footer />

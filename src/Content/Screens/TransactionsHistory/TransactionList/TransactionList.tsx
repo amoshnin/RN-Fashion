@@ -2,6 +2,7 @@
 import React from "react"
 import { ScrollView, View, StyleSheet } from "react-native"
 import { Text } from "~/Content/Shared/Components/Components/Components"
+import moment from "moment"
 
 // COMPONENTS IMPORTS //
 import { PointType } from "../Graph/Graph"
@@ -15,13 +16,13 @@ type PropsType = {
   data: Array<PointType>
 }
 
-const monthFormat = Intl.DateTimeFormat("en", { month: "long" })
-const dayFormat = Intl.DateTimeFormat("en", { day: "numeric" })
-const yearFormat = Intl.DateTimeFormat("en", { year: "numeric" })
-
 const TransactionsList: React.FC<PropsType> = (props) => {
   return (
-    <ScrollView style={styles.wrapper} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={styles.wrapper}
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
       {props.data.map((item) => {
         return (
           <View style={[styles.item_wrap, styles.row]}>
@@ -33,8 +34,7 @@ const TransactionsList: React.FC<PropsType> = (props) => {
                 <Text>{item.color}</Text>
               </View>
               <Text color={Theme.colors.darkGrey}>
-                ${item.value} - {dayFormat.format(item.date)}{" "}
-                {monthFormat.format(item.date)} {yearFormat.format(item.date)}
+                ${item.value} - {moment(item.date).format("DD MMMM YYYY")}
               </Text>
             </View>
             <Text onPress={() => {}}>See more</Text>
@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
 
+  container: { paddingBottom: 5 },
+
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
   item_wrap: {
     paddingHorizontal: 20,
     justifyContent: "space-between",
-    marginVertical: 15,
+    marginVertical: 14,
   },
 
   title_wrap: {

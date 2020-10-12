@@ -9,8 +9,7 @@ import ProductItem, { OutfitType } from "./ProductItem/ProductItem"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
-const defaultOutfits: Array<OutfitType> = [
+export const defaultOutfits: Array<OutfitType> = [
   {
     color: "#FBD1D7",
     aspectRatio: 2.2,
@@ -67,14 +66,19 @@ const defaultOutfits: Array<OutfitType> = [
   },
 ]
 
+interface PropsType {
+  outfits: Array<OutfitType>
+
+  selectedOutfits: Array<OutfitType>
+  setSelectedOutfits: (newSelectedOutfits: Array<OutfitType>) => void
+}
+
 const { width: wWidth } = Dimensions.get("screen")
 const ProductsList: React.FC<PropsType> = (props) => {
-  const [outfits, setOutfits] = useState(defaultOutfits)
-  const [selectedOutfits, setSelectedOutfits] = useState<Array<OutfitType>>([])
   const width = (wWidth - 20 * 2 - 10) / 2
 
   const Product = (item: OutfitType) => {
-    const isSelected = selectedOutfits.includes(item)
+    const isSelected = props.selectedOutfits.includes(item)
 
     return (
       <ProductItem
@@ -84,10 +88,10 @@ const ProductsList: React.FC<PropsType> = (props) => {
         isSelected={isSelected}
         onPress={() =>
           isSelected
-            ? setSelectedOutfits((prev) =>
-                prev.filter((outfit) => outfit.ID !== item.ID)
+            ? props.setSelectedOutfits(
+                props.selectedOutfits.filter((outfit) => outfit.ID !== item.ID)
               )
-            : setSelectedOutfits((prev) => [...prev, item])
+            : props.setSelectedOutfits([...props.selectedOutfits, item])
         }
       />
     )
@@ -100,10 +104,14 @@ const ProductsList: React.FC<PropsType> = (props) => {
     >
       <View style={styles.container}>
         <View style={styles.column}>
-          {outfits.filter((_, i) => i % 2 === 0).map((item) => Product(item))}
+          {props.outfits
+            .filter((_, i) => i % 2 === 0)
+            .map((item) => Product(item))}
         </View>
         <View style={styles.column}>
-          {outfits.filter((_, i) => i % 2 !== 0).map((item) => Product(item))}
+          {props.outfits
+            .filter((_, i) => i % 2 !== 0)
+            .map((item) => Product(item))}
         </View>
       </View>
     </ScrollView>
