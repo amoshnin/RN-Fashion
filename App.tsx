@@ -5,9 +5,10 @@ import { StatusBar } from "expo-status-bar"
 // COMPONENTS IMPORTS //
 import LoadAssets from "~/Content/Shared/Helpers/Functions/LoadAssets"
 
-import AuthStack from "~/Content/Screens/GeneralScreens/Auth/AuthStack"
-import OutfitIdeas from "~/Content/Screens/GeneralScreens/OutfitIdeas/OutfitIdeas"
-import FavouriteOutfits from "~/Content/Screens/GeneralScreens/FavouriteOutfits/FavouriteOutfits"
+import AuthStack from "~/Content/Screens/Auth/AuthStack"
+import OutfitIdeas from "~/Content/Screens/OutfitIdeas/OutfitIdeas"
+import FavouriteOutfits from "~/Content/Screens/FavouriteOutfits/FavouriteOutfits"
+import TransactionsHistory from "~/Content/Screens/TransactionsHistory/TransactionsHistory"
 
 import DrawerNavigation from "~/Content/DrawerNavigation/DrawerNavigation"
 import { DRAWER_WIDTH } from "~/Content/DrawerNavigation/Wrapper/Wrapper"
@@ -54,6 +55,10 @@ const App = () => {
         >
           <Drawer.Screen name="OutfitIdeas" component={OutfitIdeas} />
           <Drawer.Screen name="FavouriteOutfits" component={FavouriteOutfits} />
+          <Drawer.Screen
+            name="TransactionsHistory"
+            component={TransactionsHistory}
+          />
         </Drawer.Navigator>
       ) : (
         <AuthStack setIsAuth={setIsAuth} />

@@ -49,8 +49,8 @@ export const TabsList = [
     color: "#F8C308",
   },
   {
-    title: "Transaction History",
-    navigationDest: "TransactionHistory",
+    title: "Transactions History",
+    navigationDest: "TransactionsHistory",
     //
     icon: <MaterialIcons name="history" size={24} color={"white"} />,
     color: "#F75D94",

@@ -36,6 +36,7 @@ const FavouriteOutfits: React.FC<PropsType> = (props) => {
             </Icon>
           }
           title={"FAVOURITE OUTFITS"}
+          darkText
         />
       </SafeAreaView>
 

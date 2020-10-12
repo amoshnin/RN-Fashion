@@ -38,6 +38,7 @@ const OutfitIdeasStack: React.FC<PropsType> = (props) => {
             </Icon>
           }
           title={"OUTFIT IDEAS"}
+          darkText
         />
       </SafeAreaView>
       <CategoriesList />

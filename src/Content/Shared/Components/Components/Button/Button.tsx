@@ -17,6 +17,8 @@ type PropsType = {
   children?: ReactNode
 
   variant?: "Primary" | "Default" | "Transparent"
+  textColor?: string
+  backgroundColor?: string
   style?: ViewStyle
 
   onPress?: () => void
@@ -36,7 +38,7 @@ const Button: React.FC<PropsType> = (props) => {
       style={[
         styles.wrapper,
         {
-          backgroundColor,
+          backgroundColor: props.backgroundColor || backgroundColor,
           alignSelf: props.isCenterAlign ? "center" : undefined,
         },
         props.style,
@@ -44,7 +46,12 @@ const Button: React.FC<PropsType> = (props) => {
       onPress={props.onPress}
     >
       {props.text ? (
-        <Text size={15} fontFamily={"Semibold"} color={color} isCenterAlign>
+        <Text
+          size={15}
+          fontFamily={"Semibold"}
+          color={props.textColor || color}
+          isCenterAlign
+        >
           {props.text}
         </Text>
       ) : (

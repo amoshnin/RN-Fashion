@@ -13,13 +13,14 @@ interface PropsType {
   leftIcon: ReactNode
   rightIcon: ReactNode
   title: string
+  darkText?: boolean
 }
 
 const Header: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.wrapper}>
       {props.leftIcon}
-      <Text size={14} color={"white"}>
+      <Text size={14} color={props.darkText ? "black" : "white"}>
         {props.title.toUpperCase()}
       </Text>
       {props.rightIcon}
