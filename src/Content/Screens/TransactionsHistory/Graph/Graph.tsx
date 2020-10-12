@@ -31,13 +31,8 @@ const lerp = (v0: number, v1: number, t: number) => {
 const Graph: React.FC<PropsType> = (props) => {
   const values = props.data.map((item) => item.value)
   const dates = props.data.map((item) => item.date)
-  const minX = Math.min(...dates)
-  const maxX = Math.max(...dates)
-
-  const minY = Math.min(...values)
   const maxY = Math.max(...values)
 
-  const BORDER_RADIUS = 20
   return (
     <View style={styles.wrapper}>
       {props.data.map((point, index) => {

@@ -1,7 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
 import { View, StyleSheet, Dimensions } from "react-native"
-import Theme from "~/Content/Shared/Helpers/Constants/Theme/Theme"
 
 // COMPONENTS IMPORTS //
 
@@ -38,42 +37,57 @@ const BarItem: React.FC<PropsType> = (props) => {
   return (
     <View
       key={props.point.date}
-      style={{
-        position: "absolute",
-        width: props.step,
-        left: props.index * props.step,
-        bottom: 0,
-        height: lerp(0, height, props.point.value / props.maxY),
-      }}
+      style={[
+        styles.wrapper,
+        {
+          width: props.step,
+          left: props.index * props.step,
+          height: lerp(0, height, props.point.value / props.maxY),
+        },
+      ]}
     >
       <View
-        style={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          left: 20,
-          right: 10,
-          opacity: 0.1,
-          backgroundColor: props.point.color,
-          borderTopRightRadius: BORDER_RADIUS,
-          borderTopLeftRadius: BORDER_RADIUS,
-        }}
+        style={[
+          styles.bar,
+          {
+            backgroundColor: props.point.color,
+            borderTopRightRadius: BORDER_RADIUS,
+            borderTopLeftRadius: BORDER_RADIUS,
+          },
+        ]}
       />
       <View
-        style={{
-          position: "absolute",
-          top: 0,
-          height: 32,
-          left: 20,
-          right: 10,
-          backgroundColor: props.point.color,
-          borderRadius: BORDER_RADIUS,
-        }}
+        style={[
+          styles.bar_hat,
+          { backgroundColor: props.point.color, borderRadius: BORDER_RADIUS },
+        ]}
       />
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  wrapper: {
+    position: "absolute",
+    bottom: 0,
+  },
+
+  bar: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 20,
+    right: 10,
+    opacity: 0.1,
+  },
+
+  bar_hat: {
+    position: "absolute",
+    top: 0,
+    height: 32,
+    left: 20,
+    right: 10,
+  },
+})
 
 export default React.memo(BarItem)
