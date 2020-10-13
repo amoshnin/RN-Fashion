@@ -19,17 +19,23 @@ interface PropsType {
   minY: number
 
   startDate: number
+  //
   numberOfMonths: number
+  numberOfRanges: number
 }
 
 const RAW_HEIGHT = 16
 const Underlay: React.FC<PropsType> = (props) => {
   const minDate = moment(props.startDate)
 
+  const ranges = [...Array(props.numberOfRanges + 1)]
+    .map((_, i) => 1 / i)
+    .filter((e) => e !== Infinity)
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.yAxis_wrap}>
-        {[1, 0.66, 0.33, 0].map((t) => {
+        {ranges.map((t) => {
           return (
             <View
               key={t}

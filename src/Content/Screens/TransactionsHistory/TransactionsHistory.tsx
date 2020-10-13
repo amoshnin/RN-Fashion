@@ -82,6 +82,7 @@ const TransactionsHistory: React.FC<PropsType> = (props) => {
           data={data}
           startDate={startDate}
           numberOfMonths={numberOfMonths}
+          numberOfRanges={4}
         />
         <TransactionsList data={data} />
       </View>

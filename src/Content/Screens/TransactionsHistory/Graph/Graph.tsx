@@ -20,7 +20,9 @@ export interface PointType {
 interface PropsType {
   data: Array<PointType>
   startDate: number
-  numberOfMonths: number
+  //
+  numberOfMonths?: number
+  numberOfRanges?: number
 }
 
 const { width: sWidth } = Dimensions.get("window")
@@ -32,10 +34,11 @@ const width = canvasWidth - 30
 const height = canvasHeight - 30
 
 const Graph: React.FC<PropsType> = (props) => {
+  const { numberOfMonths = 6, numberOfRanges = 4 } = props
   const values = props.data.map((item) => item.value)
   const maxY = Math.max(...values)
   const minY = Math.min(...values)
-  const step = width / props.numberOfMonths
+  const step = width / numberOfMonths
 
   return (
     <View style={styles.wrapper}>
@@ -44,7 +47,8 @@ const Graph: React.FC<PropsType> = (props) => {
         minY={minY}
         maxY={maxY}
         startDate={props.startDate}
-        numberOfMonths={props.numberOfMonths}
+        numberOfMonths={numberOfMonths}
+        numberOfRanges={numberOfRanges}
       />
       <View style={styles.bars_wrap}>
         {props.data.map((point, index) => {
