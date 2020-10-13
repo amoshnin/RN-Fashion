@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useState } from "react"
 import { TouchableOpacity, StyleSheet, View } from "react-native"
 import Theme from "~/Content/Shared/Helpers/Constants/Theme/Theme"
 
@@ -25,10 +25,14 @@ type PropsType = {
 }
 
 const ProductsItem: React.FC<PropsType> = (props) => {
+  const [selected, setSelected] = useState<boolean>(false)
   const { color, aspectRatio } = props.outfit
   return (
     <TouchableOpacity
-      onPress={props.onPress}
+      onPress={() => {
+        props.onPress()
+        setSelected((prev) => !prev)
+      }}
       style={[
         styles.wrapper,
         {
@@ -37,7 +41,7 @@ const ProductsItem: React.FC<PropsType> = (props) => {
         },
       ]}
     >
-      {props.isSelected && (
+      {selected && (
         <View style={styles.badge}>
           <Feather name="check" size={20} color="white" />
         </View>

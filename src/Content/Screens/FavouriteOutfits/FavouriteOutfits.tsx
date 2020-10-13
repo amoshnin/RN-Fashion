@@ -8,7 +8,6 @@ import { useNavigation } from "@react-navigation/native"
 // COMPONENTS IMPORTS //
 import Header from "~/Content/Shared/Components/Sections/Header/Header"
 import ProductsList, { defaultOutfits } from "./ProductsList/ProductsList"
-import { OutfitType } from "./ProductsList/ProductItem/ProductItem"
 import Footer from "./Footer/Footer"
 
 // EXTRA IMPORTS //
@@ -21,7 +20,6 @@ type PropsType = {}
 const FavouriteOutfits: React.FC<PropsType> = (props) => {
   const navigation = useNavigation()
   const [outfits, setOutfits] = useState(defaultOutfits)
-  const [selectedOutfits, setSelectedOutfits] = useState<Array<OutfitType>>([])
 
   return (
     <View style={styles.wrapper}>
@@ -43,20 +41,12 @@ const FavouriteOutfits: React.FC<PropsType> = (props) => {
         />
       </SafeAreaView>
 
-      <ProductsList
-        outfits={outfits}
-        selectedOutfits={selectedOutfits}
-        setSelectedOutfits={setSelectedOutfits}
-      />
+      <ProductsList outfits={outfits} setOutfits={setOutfits} />
       <View style={styles.footer_wrap}>
         <Footer
           label={"Add to favourites"}
           onPress={() =>
-            setOutfits((prev) =>
-              prev.filter(
-                (ar) => !selectedOutfits.find((rm) => rm.ID === ar.ID)
-              )
-            )
+            setOutfits((prev) => prev.filter((item) => !item.selected))
           }
         />
       </View>

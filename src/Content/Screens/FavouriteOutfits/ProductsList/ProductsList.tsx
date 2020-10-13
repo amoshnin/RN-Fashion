@@ -68,9 +68,7 @@ export const defaultOutfits: Array<OutfitType> = [
 
 interface PropsType {
   outfits: Array<OutfitType>
-
-  selectedOutfits: Array<OutfitType>
-  setSelectedOutfits: (newSelectedOutfits: Array<OutfitType>) => void
+  setOutfits: (newOutfits: Array<OutfitType>) => void
 }
 
 const { width: wWidth } = Dimensions.get("screen")
@@ -78,21 +76,15 @@ const ProductsList: React.FC<PropsType> = (props) => {
   const width = (wWidth - 20 * 2 - 10) / 2
 
   const Product = (item: OutfitType) => {
-    const isSelected = props.selectedOutfits.includes(item)
-
     return (
       <ProductItem
-        key={item.color}
+        key={item.ID}
         outfit={item}
         width={width}
-        isSelected={isSelected}
-        onPress={() =>
-          isSelected
-            ? props.setSelectedOutfits(
-                props.selectedOutfits.filter((outfit) => outfit.ID !== item.ID)
-              )
-            : props.setSelectedOutfits([...props.selectedOutfits, item])
-        }
+        isSelected={item.selected}
+        onPress={() => {
+          item.selected = !item.selected
+        }}
       />
     )
   }
