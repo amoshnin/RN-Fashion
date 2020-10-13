@@ -5,6 +5,7 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
+  withTiming,
 } from "react-native-reanimated"
 
 // COMPONENTS IMPORTS //
@@ -25,6 +26,11 @@ export interface BarStyleType {
   bodyStyle: ViewStyle
 }
 
+export interface AnimationConfigType {
+  type: "Spring" | "Timing"
+  duration: number
+}
+
 interface PropsType {
   point: PointType
 
@@ -34,21 +40,30 @@ interface PropsType {
   i: number
 
   style?: BarStyleType
+  animationConfig?: AnimationConfigType
 }
 
 const { width: sWidth } = Dimensions.get("window")
 const aspectRatio = 165 / 305
 const width = sWidth - 25 * 2
 const height = width * aspectRatio
+const BORDER_RADIUS = 20
 
 const BarItem: React.FC<PropsType> = (props) => {
   const value = useSharedValue(0)
-  const BORDER_RADIUS = 20
+  const { animationConfig } = props
 
   useEffect(() => {
-    value.value = withSpring(lerp(0, height, props.point.value / props.maxY))
+    const toValue = lerp(0, height, props.point.value / props.maxY)
+    value.value =
+      animationConfig?.type === "Timing"
+        ? withTiming(toValue, {
+            duration: animationConfig.duration || 800,
+          })
+        : animationConfig?.type === "Spring"
+        ? withSpring(toValue)
+        : withSpring(toValue)
   }, [])
-
   const animatedStyle = useAnimatedStyle(() => ({ height: value.value }))
 
   return (

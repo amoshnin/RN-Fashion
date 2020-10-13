@@ -40,7 +40,6 @@ interface PropsType {
   //
   yAxisStyle?: yAxisStyleType
   xAxisStyle?: xAxisStyleType
-  //
   linesConfig?: LinesConfigStyle
 }
 

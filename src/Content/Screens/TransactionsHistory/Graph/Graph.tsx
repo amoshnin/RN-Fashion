@@ -9,7 +9,11 @@ import Underlay, {
   xAxisStyleType,
   LinesConfigStyle,
 } from "./Underlay/Underlay"
-import BarItem, { PointType, BarStyleType } from "./BarItem/BarItem"
+import BarItem, {
+  PointType,
+  BarStyleType,
+  AnimationConfigType,
+} from "./BarItem/BarItem"
 
 // EXTRA IMPORTS //
 
@@ -30,8 +34,9 @@ interface PropsType {
   barStyle?: BarStyleType
   yAxisStyle?: yAxisStyleType
   xAxisStyle?: xAxisStyleType
-  //
   linesConfig?: LinesConfigStyle
+  //
+  animationConfig?: AnimationConfigType
 }
 
 const windowWidth = Dimensions.get("window").width
@@ -39,12 +44,12 @@ const Graph: React.FC<PropsType> = (props) => {
   const {
     numberOfMonths = 6,
     numberOfRanges = 4,
-    width: propWidth,
-    height: propHeight,
+    width: propWidth = windowWidth,
+    height: propHeight = 197,
   } = props
 
-  const width = (propWidth || windowWidth) - 80
-  const height = (propHeight || 197) - 30
+  const width = propWidth - 80
+  const height = propHeight - 30
 
   const values = props.data.map((item) => item.value)
   const maxY = Math.max(...values)
@@ -76,6 +81,7 @@ const Graph: React.FC<PropsType> = (props) => {
           return (
             <BarItem
               key={point.value}
+              animationConfig={props.animationConfig}
               style={props.barStyle}
               index={index}
               point={point}
