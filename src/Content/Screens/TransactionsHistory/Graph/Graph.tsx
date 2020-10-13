@@ -23,18 +23,23 @@ interface PropsType {
   //
   numberOfMonths?: number
   numberOfRanges?: number
+  //
+  width?: number
+  height?: number
 }
 
-const { width: sWidth } = Dimensions.get("window")
-const aspectRatio = 165 / 305
-const canvasWidth = sWidth - 25 * 2
-const canvasHeight = canvasWidth * aspectRatio
-
-const width = canvasWidth - 30
-const height = canvasHeight - 30
-
+const windowWidth = Dimensions.get("window").width
 const Graph: React.FC<PropsType> = (props) => {
-  const { numberOfMonths = 6, numberOfRanges = 4 } = props
+  const {
+    numberOfMonths = 6,
+    numberOfRanges = 4,
+    width: propWidth,
+    height: propHeight,
+  } = props
+
+  const width = (propWidth || windowWidth) - 80
+  const height = (propHeight || 197) - 30
+
   const values = props.data.map((item) => item.value)
   const maxY = Math.max(...values)
   const minY = Math.min(...values)
@@ -50,7 +55,7 @@ const Graph: React.FC<PropsType> = (props) => {
         numberOfMonths={numberOfMonths}
         numberOfRanges={numberOfRanges}
       />
-      <View style={styles.bars_wrap}>
+      <View style={[styles.bars_wrap, { width, height }]}>
         {props.data.map((point, index) => {
           const i = Math.round(
             moment.duration(moment(point.date).diff(props.startDate)).asMonths()
@@ -83,8 +88,6 @@ const styles = StyleSheet.create({
   },
 
   bars_wrap: {
-    width,
-    height,
     alignSelf: "center",
     marginTop: 50,
   },

@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, Dimensions } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Icon } from "~/Content/Shared/Components/Components/Components"
 import { useNavigation } from "@react-navigation/native"
@@ -21,6 +21,7 @@ import Theme from "~/Content/Shared/Helpers/Constants/Theme/Theme"
 
 type PropsType = {}
 
+const { width } = Dimensions.get("window")
 const startDate = new Date("2019-09-01").getTime()
 const numberOfMonths = 7
 const data: Array<PointType> = [
@@ -83,6 +84,8 @@ const TransactionsHistory: React.FC<PropsType> = (props) => {
           startDate={startDate}
           numberOfMonths={numberOfMonths}
           numberOfRanges={4}
+          width={width}
+          height={197}
         />
         <TransactionsList data={data} />
       </View>

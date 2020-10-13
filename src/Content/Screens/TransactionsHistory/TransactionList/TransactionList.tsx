@@ -48,7 +48,7 @@ const TransactionsList: React.FC<PropsType> = (props) => {
 const COLOR_SPHERE_SIZE = 10
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 30,
+    marginTop: 14,
   },
 
   container: { paddingBottom: 5 },
