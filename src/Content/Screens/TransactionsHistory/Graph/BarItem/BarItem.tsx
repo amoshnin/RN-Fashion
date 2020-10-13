@@ -1,6 +1,11 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import { View, StyleSheet, Dimensions } from "react-native"
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated"
 
 // COMPONENTS IMPORTS //
 import { lerp } from "../Shared/utils"
@@ -30,17 +35,24 @@ const width = sWidth - 25 * 2
 const height = width * aspectRatio
 
 const BarItem: React.FC<PropsType> = (props) => {
+  const value = useSharedValue(0)
   const BORDER_RADIUS = 20
 
+  useEffect(() => {
+    value.value = withSpring(lerp(0, height, props.point.value / props.maxY))
+  }, [])
+
+  const animatedStyle = useAnimatedStyle(() => ({ height: value.value }))
+
   return (
-    <View
+    <Animated.View
       key={props.point.date}
       style={[
         styles.wrapper,
+        animatedStyle,
         {
           width: props.step,
           left: props.i * props.step,
-          height: lerp(0, height, props.point.value / props.maxY),
         },
       ]}
     >
@@ -54,13 +66,15 @@ const BarItem: React.FC<PropsType> = (props) => {
           },
         ]}
       />
-      <View
-        style={[
-          styles.bar_hat,
-          { backgroundColor: props.point.color, borderRadius: BORDER_RADIUS },
-        ]}
-      />
-    </View>
+      {
+        <View
+          style={[
+            styles.bar_hat,
+            { backgroundColor: props.point.color, borderRadius: BORDER_RADIUS },
+          ]}
+        />
+      }
+    </Animated.View>
   )
 }
 

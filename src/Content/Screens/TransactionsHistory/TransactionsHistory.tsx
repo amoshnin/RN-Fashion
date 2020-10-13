@@ -36,11 +36,6 @@ const data: Array<PointType> = [
   },
   {
     date: new Date("2019-11-11").getTime(),
-    value: 32.42,
-    color: "#FFC641",
-  },
-  {
-    date: new Date("2019-11-11").getTime(),
     value: 65.42,
     color: "#FF0058",
   },

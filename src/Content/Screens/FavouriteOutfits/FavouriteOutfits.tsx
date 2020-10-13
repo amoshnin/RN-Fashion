@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { View, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Icon } from "~/Content/Shared/Components/Components/Components"
@@ -20,6 +20,7 @@ type PropsType = {}
 const FavouriteOutfits: React.FC<PropsType> = (props) => {
   const navigation = useNavigation()
   const [outfits, setOutfits] = useState(defaultOutfits)
+  const listRef = useRef(null)
 
   return (
     <View style={styles.wrapper}>
@@ -41,7 +42,11 @@ const FavouriteOutfits: React.FC<PropsType> = (props) => {
         />
       </SafeAreaView>
 
-      <ProductsList outfits={outfits} setOutfits={setOutfits} />
+      <ProductsList
+        outfits={outfits}
+        setOutfits={setOutfits}
+        listRef={listRef}
+      />
       <View style={styles.footer_wrap}>
         <Footer
           label={"Add to favourites"}

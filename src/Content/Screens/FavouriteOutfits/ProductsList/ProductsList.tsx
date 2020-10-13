@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
-import { View, ScrollView, StyleSheet, Dimensions } from "react-native"
+import React, { Ref } from "react"
+import { View, StyleSheet, Dimensions } from "react-native"
+import Animated from "react-native-reanimated"
 
 // COMPONENTS IMPORTS //
 import ProductItem, { OutfitType } from "./ProductItem/ProductItem"
@@ -67,6 +68,7 @@ export const defaultOutfits: Array<OutfitType> = [
 ]
 
 interface PropsType {
+  listRef: Ref<any>
   outfits: Array<OutfitType>
   setOutfits: (newOutfits: Array<OutfitType>) => void
 }
@@ -90,23 +92,24 @@ const ProductsList: React.FC<PropsType> = (props) => {
   }
 
   return (
-    <ScrollView
+    <Animated.ScrollView
       style={styles.wrapper}
-      contentContainerStyle={{ paddingBottom: 135 }}
+      contentContainerStyle={styles.scroll_container}
     >
       <View style={styles.container}>
         <View style={styles.column}>
           {props.outfits
-            .filter((_, i) => i % 2 === 0)
+            .filter((item) => item.ID % 2 === 0)
             .map((item) => Product(item))}
         </View>
+
         <View style={styles.column}>
           {props.outfits
-            .filter((_, i) => i % 2 !== 0)
+            .filter((item) => item.ID % 2 !== 0)
             .map((item) => Product(item))}
         </View>
       </View>
-    </ScrollView>
+    </Animated.ScrollView>
   )
 }
 
@@ -114,6 +117,8 @@ const styles = StyleSheet.create({
   wrapper: {
     paddingHorizontal: 15,
   },
+
+  scroll_container: { paddingBottom: 135 },
 
   container: {
     flexDirection: "row",
