@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, ViewStyle, TextStyle } from "react-native"
 import { Text } from "~/Content/Shared/Components/Components/Components"
 import Theme from "~/Content/Shared/Helpers/Constants/Theme/Theme"
 import moment from "moment"
@@ -12,6 +12,21 @@ import { lerp } from "../Shared/utils"
 
 /////////////////////////////////////////////////////////////////////////////
 
+export interface yAxisStyleType {
+  wrap: ViewStyle
+  text: TextStyle
+}
+
+export interface xAxisStyleType {
+  wrap: ViewStyle
+  text: TextStyle
+}
+
+export interface LinesConfigStyle {
+  visible: boolean
+  style: ViewStyle
+}
+
 interface PropsType {
   step: number
 
@@ -22,6 +37,11 @@ interface PropsType {
   //
   numberOfMonths: number
   numberOfRanges: number
+  //
+  yAxisStyle?: yAxisStyleType
+  xAxisStyle?: xAxisStyleType
+  //
+  linesConfig?: LinesConfigStyle
 }
 
 const RAW_HEIGHT = 16
@@ -34,7 +54,7 @@ const Underlay: React.FC<PropsType> = (props) => {
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.yAxis_wrap}>
+      <View style={[styles.yAxis_wrap, props.yAxisStyle?.wrap]}>
         {ranges.map((t) => {
           return (
             <View
@@ -48,20 +68,18 @@ const Underlay: React.FC<PropsType> = (props) => {
             >
               <View style={styles.item_content}>
                 <Text
+                  style={{ ...styles.yAxisText, ...props.yAxisStyle?.text }}
                   color={Theme.colors.darkGrey}
-                  style={{ textAlign: "right" }}
                 >
                   {Math.round(lerp(props.minY, props.maxY, t))}
                 </Text>
               </View>
 
-              <View
-                style={{
-                  flex: 1,
-                  height: 1,
-                  backgroundColor: Theme.colors.grey,
-                }}
-              />
+              {(props.linesConfig === undefined
+                ? true
+                : props.linesConfig.visible) && (
+                <View style={[styles.line, props.linesConfig?.style]} />
+              )}
             </View>
           )
         })}
@@ -71,8 +89,16 @@ const Underlay: React.FC<PropsType> = (props) => {
           .fill(0)
           .map((_, i) => minDate.clone().add(i, "month"))
           .map((date, index) => (
-            <View key={index} style={{ width: props.step }}>
-              <Text key={index} color={Theme.colors.darkGrey} isCenterAlign>
+            <View
+              key={index}
+              style={[props.xAxisStyle?.wrap, { width: props.step }]}
+            >
+              <Text
+                key={index}
+                style={props.xAxisStyle?.text}
+                color={Theme.colors.darkGrey}
+                isCenterAlign
+              >
                 {date.format("MMM")}
               </Text>
             </View>
@@ -105,6 +131,14 @@ const styles = StyleSheet.create({
     height: 35,
     flexDirection: "row",
     alignItems: "center",
+  },
+
+  yAxisText: { textAlign: "right" },
+
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: Theme.colors.grey,
   },
 })
 

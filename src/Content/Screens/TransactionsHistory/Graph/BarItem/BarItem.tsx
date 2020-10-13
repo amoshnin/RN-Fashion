@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useEffect } from "react"
-import { View, StyleSheet, Dimensions } from "react-native"
+import { View, StyleSheet, Dimensions, ViewStyle } from "react-native"
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -20,6 +20,11 @@ export interface PointType {
   color: string
 }
 
+export interface BarStyleType {
+  topStyle: ViewStyle
+  bodyStyle: ViewStyle
+}
+
 interface PropsType {
   point: PointType
 
@@ -27,6 +32,8 @@ interface PropsType {
   maxY: number
   step: number
   i: number
+
+  style?: BarStyleType
 }
 
 const { width: sWidth } = Dimensions.get("window")
@@ -58,7 +65,15 @@ const BarItem: React.FC<PropsType> = (props) => {
     >
       <View
         style={[
+          styles.bar_top,
+          props.style?.topStyle,
+          { backgroundColor: props.point.color, borderRadius: BORDER_RADIUS },
+        ]}
+      />
+      <View
+        style={[
           styles.bar,
+          props.style?.bodyStyle,
           {
             backgroundColor: props.point.color,
             borderTopRightRadius: BORDER_RADIUS,
@@ -66,14 +81,6 @@ const BarItem: React.FC<PropsType> = (props) => {
           },
         ]}
       />
-      {
-        <View
-          style={[
-            styles.bar_hat,
-            { backgroundColor: props.point.color, borderRadius: BORDER_RADIUS },
-          ]}
-        />
-      }
     </Animated.View>
   )
 }
@@ -93,7 +100,7 @@ const styles = StyleSheet.create({
     opacity: 0.1,
   },
 
-  bar_hat: {
+  bar_top: {
     position: "absolute",
     top: 0,
     height: 32,

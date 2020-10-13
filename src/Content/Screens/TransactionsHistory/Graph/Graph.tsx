@@ -4,19 +4,19 @@ import { View, StyleSheet, Dimensions } from "react-native"
 import moment from "moment"
 
 // COMPONENTS IMPORTS //
-import Underlay from "./Underlay/Underlay"
-import BarItem from "./BarItem/BarItem"
+import Underlay, {
+  yAxisStyleType,
+  xAxisStyleType,
+  LinesConfigStyle,
+} from "./Underlay/Underlay"
+import BarItem, { PointType, BarStyleType } from "./BarItem/BarItem"
 
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
 
-export interface PointType {
-  date: number
-  value: number
-  color: string
-}
-
+export { PointType }
+export { BarStyleType }
 interface PropsType {
   data: Array<PointType>
   startDate: number
@@ -26,6 +26,12 @@ interface PropsType {
   //
   width?: number
   height?: number
+  //
+  barStyle?: BarStyleType
+  yAxisStyle?: yAxisStyleType
+  xAxisStyle?: xAxisStyleType
+  //
+  linesConfig?: LinesConfigStyle
 }
 
 const windowWidth = Dimensions.get("window").width
@@ -54,6 +60,9 @@ const Graph: React.FC<PropsType> = (props) => {
         startDate={props.startDate}
         numberOfMonths={numberOfMonths}
         numberOfRanges={numberOfRanges}
+        yAxisStyle={props.yAxisStyle}
+        xAxisStyle={props.xAxisStyle}
+        linesConfig={props.linesConfig}
       />
       <View style={[styles.bars_wrap, { width, height }]}>
         {props.data.map((point, index) => {
@@ -67,6 +76,7 @@ const Graph: React.FC<PropsType> = (props) => {
           return (
             <BarItem
               key={point.value}
+              style={props.barStyle}
               index={index}
               point={point}
               step={step}
