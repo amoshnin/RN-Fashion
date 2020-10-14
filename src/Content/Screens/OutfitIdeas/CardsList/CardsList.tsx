@@ -14,26 +14,6 @@ type PropsType = {}
 
 const cards = [
   {
-    index: 9,
-    image: require("~/Assets/Images/slides/1.png"),
-  },
-  {
-    index: 8,
-    image: require("~/Assets/Images/slides/2.png"),
-  },
-  {
-    index: 7,
-    image: require("~/Assets/Images/slides/3.png"),
-  },
-  {
-    index: 6,
-    image: require("~/Assets/Images/slides/4.png"),
-  },
-  {
-    index: 5,
-    image: require("~/Assets/Images/slides/4.png"),
-  },
-  {
     index: 4,
     image: require("~/Assets/Images/slides/1.png"),
   },

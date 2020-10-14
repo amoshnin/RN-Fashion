@@ -28,7 +28,7 @@ const data: Array<PointType> = [
   {
     date: new Date("2019-09-01").getTime(),
     value: 29,
-    color: Theme.colors.primary,
+    color: "#212B36",
   },
   {
     date: new Date("2019-10-05").getTime(),
@@ -38,7 +38,7 @@ const data: Array<PointType> = [
   {
     date: new Date("2019-11-11").getTime(),
     value: 65.42,
-    color: "#FF0058",
+    color: "#5C6AC4",
   },
   {
     date: new Date("2019-12-11").getTime(),
@@ -48,7 +48,7 @@ const data: Array<PointType> = [
   {
     date: new Date("2020-01-11").getTime(),
     value: 70.42,
-    color: "#FF0058",
+    color: "#BF0711",
   },
   {
     date: new Date("2020-02-11").getTime(),

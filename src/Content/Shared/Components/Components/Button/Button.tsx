@@ -19,7 +19,7 @@ type PropsType = {
   variant?: "Primary" | "Default" | "Transparent"
   textColor?: string
   backgroundColor?: string
-  style?: ViewStyle
+  style?: ViewStyle | Array<ViewStyle>
 
   onPress?: () => void
 }

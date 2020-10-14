@@ -8,6 +8,7 @@ import LoadAssets from "~/Content/Shared/Helpers/Functions/LoadAssets"
 import AuthStack from "~/Content/Screens/Auth/AuthStack"
 import OutfitIdeas from "~/Content/Screens/OutfitIdeas/OutfitIdeas"
 import FavouriteOutfits from "~/Content/Screens/FavouriteOutfits/FavouriteOutfits"
+import EditProfile from "~/Content/Screens/EditProfile/EditProfile"
 import TransactionsHistory from "~/Content/Screens/TransactionsHistory/TransactionsHistory"
 
 import DrawerNavigation from "~/Content/DrawerNavigation/DrawerNavigation"
@@ -47,7 +48,7 @@ const App = () => {
 
   return (
     <>
-      {!isAuth ? (
+      {isAuth ? (
         <Drawer.Navigator
           initialRouteName="OutfitIdeas"
           drawerContent={DrawerNavigation}
@@ -55,6 +56,7 @@ const App = () => {
         >
           <Drawer.Screen name="OutfitIdeas" component={OutfitIdeas} />
           <Drawer.Screen name="FavouriteOutfits" component={FavouriteOutfits} />
+          <Drawer.Screen name="EditProfile" component={EditProfile} />
           <Drawer.Screen
             name="TransactionsHistory"
             component={TransactionsHistory}

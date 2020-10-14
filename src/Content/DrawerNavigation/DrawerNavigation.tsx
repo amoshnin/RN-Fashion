@@ -9,7 +9,7 @@ import {
 // COMPONENTS IMPORTS //
 import Wrapper from "./Wrapper/Wrapper"
 import Header from "~/Content/Shared/Components/Sections/Header/Header"
-import AccountInfo from "./AccountInfo/AccountInfo"
+import { AccountInfo } from "~/Content/Shared/Sections/index"
 import TabItem, { TabsList } from "./TabItem/TabItem"
 
 // EXTRA IMPORTS

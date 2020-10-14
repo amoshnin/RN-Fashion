@@ -1,6 +1,12 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { TouchableOpacity, StyleSheet, View } from "react-native"
+import {
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Image,
+  ImageRequireSource,
+} from "react-native"
 import Theme from "~/Content/Shared/Helpers/Constants/Theme/Theme"
 
 // COMPONENTS IMPORTS //
@@ -15,6 +21,7 @@ export interface OutfitType {
   aspectRatio: number
   selected: boolean
   ID: number
+  image: ImageRequireSource
 }
 type PropsType = {
   outfit: OutfitType
@@ -46,6 +53,10 @@ const ProductsItem: React.FC<PropsType> = (props) => {
           <Feather name="check" size={20} color="white" />
         </View>
       )}
+      <Image
+        style={[styles.image, { height: (110 * aspectRatio) / 1.3 }]}
+        source={props.outfit.image}
+      />
     </TouchableOpacity>
   )
 }
@@ -67,6 +78,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 10,
     alignSelf: "flex-end",
+  },
+
+  image: {
+    // height: 160,
+    width: 160,
+    bottom: 0,
+    resizeMode: "contain",
+    alignSelf: "center",
+    position: "absolute",
   },
 })
 

@@ -16,47 +16,55 @@ export const defaultOutfits: Array<OutfitType> = [
     aspectRatio: 2.2,
     selected: false,
     ID: 1,
+    image: require("~/Assets/Images/slides/1.png"),
   },
   {
     color: "#EFE4D9",
     aspectRatio: 1.8,
     selected: false,
     ID: 2,
+    image: require("~/Assets/Images/slides/2.png"),
   },
   {
     color: "#BEECC4",
     aspectRatio: 1.7,
     selected: false,
     ID: 3,
+    image: require("~/Assets/Images/slides/3.png"),
   },
   {
     color: "#BFEAF5",
     aspectRatio: 2.3,
     selected: false,
     ID: 4,
+    image: require("~/Assets/Images/slides/1.png"),
   },
   {
     color: "#D5C3BB",
     aspectRatio: 1.7,
     selected: false,
     ID: 5,
+    image: require("~/Assets/Images/slides/1.png"),
   },
   {
     color: "#F3F0EF",
     aspectRatio: 2,
     selected: false,
     ID: 6,
+    image: require("~/Assets/Images/slides/3.png"),
   },
   {
     color: "#FBD1D7",
     aspectRatio: 2.1,
     selected: false,
     ID: 7,
+    image: require("~/Assets/Images/slides/3.png"),
   },
   {
     color: "#BEECC4",
     aspectRatio: 2.1,
     selected: false,
+    image: require("~/Assets/Images/slides/1.png"),
     ID: 8,
   },
   {
@@ -64,6 +72,7 @@ export const defaultOutfits: Array<OutfitType> = [
     aspectRatio: 2.1,
     selected: false,
     ID: 9,
+    image: require("~/Assets/Images/slides/1.png"),
   },
 ]
 

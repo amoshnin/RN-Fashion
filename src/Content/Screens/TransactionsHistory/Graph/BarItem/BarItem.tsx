@@ -65,8 +65,8 @@ const BarItem: React.FC<PropsType> = (props) => {
                 duration: animationConfig.duration || 800,
               })
             : animationConfig?.type === "Spring"
-            ? withSpring(toValue)
-            : withSpring(toValue)
+            ? withSpring(toValue, { stiffness: 70 })
+            : withSpring(toValue, { stiffness: 70 })
       })
 
       navigation.addListener("blur", () => {

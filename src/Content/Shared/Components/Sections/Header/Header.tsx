@@ -10,8 +10,8 @@ import { Text } from "~/Content/Shared/Components/Components/Components"
 /////////////////////////////////////////////////////////////////////////////
 
 interface PropsType {
-  leftIcon: ReactNode
-  rightIcon: ReactNode
+  leftIcon?: ReactNode
+  rightIcon?: ReactNode
   title: string
   darkText?: boolean
 }
@@ -19,11 +19,11 @@ interface PropsType {
 const Header: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.wrapper}>
-      {props.leftIcon}
+      <View>{props.leftIcon}</View>
       <Text size={14} color={props.darkText ? "black" : "white"}>
         {props.title.toUpperCase()}
       </Text>
-      {props.rightIcon}
+      <View>{props.rightIcon}</View>
     </View>
   )
 }
