@@ -10,6 +10,7 @@ import Animated, {
 
 // COMPONENTS IMPORTS //
 import { lerp } from "../Shared/utils"
+import { useNavigation } from "@react-navigation/native"
 
 // EXTRA IMPORTS //
 
@@ -50,20 +51,30 @@ const height = width * aspectRatio
 const BORDER_RADIUS = 20
 
 const BarItem: React.FC<PropsType> = (props) => {
+  const navigation = useNavigation()
   const value = useSharedValue(0)
   const { animationConfig } = props
 
   useEffect(() => {
-    const toValue = lerp(0, height, props.point.value / props.maxY)
-    value.value =
-      animationConfig?.type === "Timing"
-        ? withTiming(toValue, {
-            duration: animationConfig.duration || 800,
-          })
-        : animationConfig?.type === "Spring"
-        ? withSpring(toValue)
-        : withSpring(toValue)
-  }, [])
+    const unsubscribe = () => {
+      navigation.addListener("focus", () => {
+        const toValue = lerp(0, height, props.point.value / props.maxY)
+        value.value =
+          animationConfig?.type === "Timing"
+            ? withTiming(toValue, {
+                duration: animationConfig.duration || 800,
+              })
+            : animationConfig?.type === "Spring"
+            ? withSpring(toValue)
+            : withSpring(toValue)
+      })
+
+      navigation.addListener("blur", () => {
+        value.value = 0
+      })
+    }
+    return unsubscribe()
+  }, [navigation])
   const animatedStyle = useAnimatedStyle(() => ({ height: value.value }))
 
   return (
